@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Responsive Landing Page - SkillCraft</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* Header styling */
+    header {
+      background-color: #222;
+      color: white;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: background-color 0.3s;
+    }
+
+    header.scrolled {
+      background-color: #cc0000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      padding: 6px 12px;
+      font-weight: normal;
+      transition: all 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+
+    /* Active (clicked/scrolling into section) link style */
+    nav ul li a.active {
+      color: #00ffcc;
+      font-weight: bold;
+      text-decoration: underline;
+      border-bottom: 2px solid #00ffcc;
+    }
+
+    /* Section styles */
+    .section {
+      padding: 100px 30px;
+      margin-top: 80px;
+      min-height: 100vh;
+    }
+
+    h1, h2 {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header id="navbar">
+    <div class="logo">SkillCraft</div>
+    <nav>
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Content Sections -->
+  <section id="home" class="section">
+    <h1>Welcome to SkillCraft</h1>
+    <p>This landing page has a responsive menu with color and style change.</p>
+  </section>
+
+  <section id="about" class="section">
+    <h2>About Us</h2>
+    <p>SkillCraft provides training and internships in tech.</p>
+  </section>
+
+  <section id="services" class="section">
+    <h2>Our Services</h2>
+    <p>Web Development, App Development, UI/UX, and more.</p>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>Email: contact@skillcraft.com</p>
+  </section>
+
+  <!-- Script for scroll and click -->
+  <script>
+    // Change navbar background on scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+
+      // Add 'active' style to menu item based on scroll
+      const sections = document.querySelectorAll('.section');
+      const links = document.querySelectorAll('.nav-link');
+
+      sections.forEach(section => {
+        const top = section.offsetTop - 90;
+        const bottom = top + section.offsetHeight;
+        const scroll = window.scrollY;
+
+        if (scroll >= top && scroll < bottom) {
+          links.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`a[href="#${section.id}"]`);
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        }
+      });
+    });
+
+    // Add click event to menu links to apply 'active' style
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
